@@ -7,14 +7,14 @@ services:
       SCHEDULER0_AUTH_PASSWORD:  admin
       SCHEDULER0_AUTH_USERNAME:  admin
       SCHEDULER0_PROTOCOL:  http
-      SCHEDULER0_HOST: 127.0.0.1
+      SCHEDULER0_HOST: node1
       SCHEDULER0_PORT: 9091
       SCHEDULER0_PEER_AUTH_REQUEST_TIMEOUT_MS: 5
       SCHEDULER0_PEER_CONNECT_RETRY_MAX: 10
       SCHEDULER0_PEER_CONNECT_RETRY_DELAY_SECONDS: 2
       SCHEDULER0_BOOTSTRAP: 'true'
       SCHEDULER0_NODE_ID: 1
-      SCHEDULER0_RAFT_ADDRESS: "127.0.0.1:7071"
+      SCHEDULER0_RAFT_ADDRESS: "node1:7071"
       SCHEDULER0_RAFT_TRANSPORT_MAX_POOL: 1
       SCHEDULER0_RAFT_TRANSPORT_TIMEOUT: 2
       SCHEDULER0_JOB_EXECUTION_RETRY_DELAY: 1
@@ -26,7 +26,7 @@ services:
       SCHEDULER0_EXECUTION_LOG_FETCH_INTERVAL_SECONDS: 2
       SCHEDULER0_JOB_INVOCATION_DEBOUNCE_DELAY: 2
       SCHEDULER0_HTTP_EXECUTOR_PAYLOAD_MAX_SIZE_MB: 2
-      SCHEDULER0_REPLICAS: '[{"nodeId": 1, "raft_address": "127.0.0.1:7071", "address": "http://127.0.0.1:9091"},{"nodeId": 2,"raft_address": "127.0.0.1:7072","address":"http://127.0.0.1:9092"},{"nodeId": 3,"raft_address":"127.0.0.1:7073","address":"http://127.0.0.1:9093"}]'
+      SCHEDULER0_REPLICAS: '[{"nodeId": 1, "raft_address": "node1:7071", "address": "http://node1:9091"},{"nodeId": 2,"raft_address": "node2:7072","address":"http://node2:9092"},{"nodeId": 3,"raft_address":"node3:7073","address":"http://node3:9093"}]'
     ports:
       - "9091:9091"
       - "7071:7071"
@@ -36,8 +36,8 @@ services:
     depends_on:
       - node2
       - node3
-    network_mode:
-      host
+    networks:
+      - scheduler0_network
   node2:
     build:  .
     environment:
@@ -45,14 +45,14 @@ services:
       SCHEDULER0_AUTH_PASSWORD: admin
       SCHEDULER0_AUTH_USERNAME: admin
       SCHEDULER0_PROTOCOL: http
-      SCHEDULER0_HOST: 127.0.0.1
+      SCHEDULER0_HOST: node2
       SCHEDULER0_PORT: 9092
       SCHEDULER0_PEER_AUTH_REQUEST_TIMEOUT_MS: 5
       SCHEDULER0_PEER_CONNECT_RETRY_MAX: 10
       SCHEDULER0_PEER_CONNECT_RETRY_DELAY_SECONDS: 2
       SCHEDULER0_BOOTSTRAP: false
       SCHEDULER0_NODE_ID: 2
-      SCHEDULER0_RAFT_ADDRESS: "127.0.0.1:7072"
+      SCHEDULER0_RAFT_ADDRESS: "node2:7072"
       SCHEDULER0_RAFT_TRANSPORT_MAX_POOL: 1
       SCHEDULER0_RAFT_TRANSPORT_TIMEOUT: 2
       SCHEDULER0_JOB_EXECUTION_RETRY_DELAY: 1
@@ -64,15 +64,15 @@ services:
       SCHEDULER0_EXECUTION_LOG_FETCH_INTERVAL_SECONDS: 2
       SCHEDULER0_JOB_INVOCATION_DEBOUNCE_DELAY: 2
       SCHEDULER0_HTTP_EXECUTOR_PAYLOAD_MAX_SIZE_MB: 2
-      SCHEDULER0_REPLICAS: '[{"nodeId": 1, "raft_address": "127.0.0.1:7071", "address": "http://127.0.0.1:9091"},{"nodeId": 2,"raft_address": "127.0.0.1:7072","address":"http://127.0.0.1:9092"},{"nodeId": 3,"raft_address":"127.0.0.1:7073","address":"http://127.0.0.1:9093"}]'
+      SCHEDULER0_REPLICAS: '[{"nodeId": 1, "raft_address": "node1:7071", "address": "http://node1:9091"},{"nodeId": 2,"raft_address": "node2:7072","address":"http://node2:9092"},{"nodeId": 3,"raft_address":"node3:7073","address":"http://node3:9093"}]'
     ports:
       - "9092:9092"
       - "7072:7072"
     expose:
       - 9092
       - 7072
-    network_mode:
-      host
+    networks:
+      - scheduler0_network
   node3:
     build:  .
     environment:
@@ -80,14 +80,14 @@ services:
       SCHEDULER0_AUTH_PASSWORD: admin
       SCHEDULER0_AUTH_USERNAME: admin
       SCHEDULER0_PROTOCOL: http
-      SCHEDULER0_HOST: 127.0.0.1
+      SCHEDULER0_HOST: node3
       SCHEDULER0_PORT: 9093
       SCHEDULER0_PEER_AUTH_REQUEST_TIMEOUT_MS: 5
       SCHEDULER0_PEER_CONNECT_RETRY_MAX: 10
       SCHEDULER0_PEER_CONNECT_RETRY_DELAY_SECONDS: 2
       SCHEDULER0_BOOTSTRAP: false
       SCHEDULER0_NODE_ID: 3
-      SCHEDULER0_RAFT_ADDRESS: "127.0.0.1:7073"
+      SCHEDULER0_RAFT_ADDRESS: "node3:7073"
       SCHEDULER0_RAFT_TRANSPORT_MAX_POOL: 1
       SCHEDULER0_RAFT_TRANSPORT_TIMEOUT: 2
       SCHEDULER0_JOB_EXECUTION_RETRY_DELAY: 1
@@ -99,15 +99,15 @@ services:
       SCHEDULER0_EXECUTION_LOG_FETCH_INTERVAL_SECONDS: 2
       SCHEDULER0_JOB_INVOCATION_DEBOUNCE_DELAY: 2
       SCHEDULER0_HTTP_EXECUTOR_PAYLOAD_MAX_SIZE_MB: 2
-      SCHEDULER0_REPLICAS: '[{"nodeId": 1, "raft_address": "127.0.0.1:7071", "address": "http://127.0.0.1:9091"},{"nodeId": 2,"raft_address": "127.0.0.1:7072","address":"http://127.0.0.1:9092"},{"nodeId": 3,"raft_address":"127.0.0.1:7073","address":"http://127.0.0.1:9093"}]'
+      SCHEDULER0_REPLICAS: '[{"nodeId": 1, "raft_address": "node1:7071", "address": "http://node1:9091"},{"nodeId": 2,"raft_address": "node2:7072","address":"http://node2:9092"},{"nodeId": 3,"raft_address":"node3:7073","address":"http://node3:9093"}]'
     ports: 
       - "9093:9093"
       - "7073:7073"
     expose:
       - 9093
       - 7073
-    network_mode:
-      host
+    networks:
+      - scheduler0_network
 networks:
   scheduler0_network:
-    driver: host
+    driver: bridge
