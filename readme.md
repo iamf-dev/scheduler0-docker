@@ -6,8 +6,7 @@ eiter as a single node or in a cluster.
 ## Deployment Types
 
 * Dockerfile for single node deployment
-* Docker compose for cluster with five nodes deployment
-* Docker compose for cluster with five nodes deployment and a node server-client
+* Docker compose for cluster with three nodes deployment
 
 ## License
 
