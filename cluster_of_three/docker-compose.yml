@@ -38,6 +38,9 @@ services:
       - node3
     networks:
       - scheduler0_network
+    volumes:
+      - ./node1/raft_data:/app/raft_data:rw
+      - ./node1/sqlite_data:/app/sqlite_data:rw
   node2:
     build:  .
     environment:
@@ -73,6 +76,9 @@ services:
       - 7072
     networks:
       - scheduler0_network
+    volumes:
+      - ./node2/raft_data:/app/raft_data:rw
+      - ./node2/sqlite_data:/app/sqlite_data:rw
   node3:
     build:  .
     environment:
@@ -108,6 +114,9 @@ services:
       - 7073
     networks:
       - scheduler0_network
+    volumes:
+      - ./node3/raft_data:/app/raft_data:rw
+      - ./node3/sqlite_data:/app/sqlite_data:rw
 networks:
   scheduler0_network:
     driver: bridge
