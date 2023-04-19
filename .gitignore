@@ -1,1 +1,5 @@
 .idea/
+
+./cluster_of_three/node1
+./cluster_of_three/node2
+./cluster_of_three/node3
